@@ -1,0 +1,37 @@
+<p id="notice">
+	<%= notice %>
+</p>
+
+<div class="row">
+	<div class="column small-6 medium-3 small-centered">
+		<%= image_tag "jam-es-logo.png" %>
+	</div>
+	<br>
+</div>
+
+<div class="row">
+	<div class="column small-12 medium-6 small-centered">
+		<table style="width:100%;">
+			<tbody>
+	    	<% @links.each_with_index do |link, i| %>
+	    		<tr>
+	    			<td>
+							<%= link_to link.id, link, :target => "_blank" %>
+						</td>
+						<td>
+							<%= link.url %>
+						</td>
+						<!-- <td>
+							<a data-clipboard-target='fe_text' data-clipboard-text='<%= i %>' id="copy-link">Copy Link</a>
+						</td> -->
+						<td>
+							<%= link_to 'Destroy', link, method: :delete, data: { confirm: 'Are you sure?' } %>
+						</td>
+					</tr>
+	    	<% end %>
+	    </tbody>
+    </table>
+  </div>
+</div>
+<br>
+<%= render 'form' %>
