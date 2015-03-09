@@ -10,28 +10,53 @@
 </div>
 
 <div class="row">
-	<div class="column small-12 medium-6 small-centered">
+	<div class="column small-12 medium-8 right">
 		<table style="width:100%;">
 			<tbody>
+				<tr>
+					<th>
+						Open Link
+					</th>
+					<th>
+						URL
+					</th>
+					<th style="width: 140px">
+						Copy Link
+					</th>
+					<th>
+						Delete Link
+					</th>
+				</tr>
+				<% @count = 0 %>
 	    	<% @links.each_with_index do |link, i| %>
 	    		<tr>
 	    			<td>
-							<%= link_to link.id, link, :target => "_blank" %>
+	    				<textarea style="display:none;" id="fe_text-<%= i %>"><%= link_url(link.id) %></textarea>
+							<%= link_to link.id, link, :target => "_blank"%>
 						</td>
 						<td>
 							<%= link.url %>
 						</td>
-						<!-- <td>
-							<a data-clipboard-target='fe_text' data-clipboard-text='<%= i %>' id="copy-link">Copy Link</a>
-						</td> -->
 						<td>
-							<%= link_to 'Destroy', link, method: :delete, data: { confirm: 'Are you sure?' } %>
+							<button data-clipboard-target='fe_text-<%= i %>' data-clipboard-text='Default clipboard text from attribute' id='d_clip_button-<%= i %>' title='Click me to copy to clipboard.' style="background: rgba(255,255,255,0.0); color: #008CBA; border: none; line-height: 1em; margin: 0; padding: 1em 1em 1em 0; font-size: 1em;">Copy Link</button>
+							<script>
+								$(document).ready(function() {
+									var clip = new ZeroClipboard($("#d_clip_button-<%= i %>"));
+								});
+							</script>
+						</td>
+						<td>
+							<%= link_to 'Delete', link, method: :delete, data: { confirm: 'Are you sure?' } %>
 						</td>
 					</tr>
+					<% @count += 1 %>
 	    	<% end %>
 	    </tbody>
     </table>
   </div>
+  <%= render 'form' %>
 </div>
 <br>
-<%= render 'form' %>
+
+
+

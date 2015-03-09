@@ -1,11 +1,18 @@
+<% here = rand(1000..10000) %>
 <tr>
 	<td>
-		<%= link_to @link.id, @link %>
+		<textarea style="display:none;" id="fe_text-<%= here %>"><%= link_url(@link.id) %></textarea>
+		<%= link_to @link.id, @link, :target => "_blank"%>
 	</td>
 	<td>
 		<%= @link.url %>
 	</td>
 	<td>
-		<a>Copy Link</a>
+		<button data-clipboard-target='fe_text-<%= here %>' data-clipboard-text='Default clipboard text from attribute' id='d_clip_button-<%= here %>' title='Click me to copy to clipboard.' style="background: rgba(255,255,255,0.0); color: #008CBA; border: none; line-height: 1em; margin: 0; padding: 1em; font-size: 1em;">Copy Link</button>
+		<script>
+			$(document).ready(function() {
+				var clip = new ZeroClipboard($("#d_clip_button-<%= here %>"));
+			});
+		</script>
 	</td>
 </tr>
